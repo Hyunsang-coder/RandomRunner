@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.272
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.3689645, g: 0.4291323, b: 0.4355511, a: 0.272}
+  m_IndirectSpecularColor: {r: 0.26419926, g: 0.345113, b: 0.39642167, a: 0.272}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -277,8 +277,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.91078866, g: 0.29156283, b: 0.9811321, a: 1}
+    m_PressedColor: {r: 0.8938236, g: 0, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -326,6 +326,18 @@ MonoBehaviour:
       - m_Target: {fileID: 963194229}
         m_TargetAssemblyTypeName: FollowCamera, Assembly-CSharp
         m_MethodName: PositionCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2138017905}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: ReStartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1416,7 +1428,7 @@ PrefabInstance:
     - target: {fileID: 5768213248655249044, guid: 202eb2c3e446a1c4c83e2d8e1780fe90, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 3e3fdc21e799ae74e9ab96e7f347773a, type: 2}
+      objectReference: {fileID: 9100000, guid: b2c2b15ea5871bb4ba9e2cb4a926482e, type: 2}
     - target: {fileID: 5859497185661120322, guid: 202eb2c3e446a1c4c83e2d8e1780fe90, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2937,6 +2949,7 @@ MonoBehaviour:
   offsetPosition: {x: 0, y: 4, z: -7}
   offsetRotation: {x: 15, y: 0, z: 0}
   finishLine: {fileID: 385149640}
+  camSpeed: 5
 --- !u!1 &999619377
 GameObject:
   m_ObjectHideFlags: 0
@@ -4277,7 +4290,7 @@ PrefabInstance:
     - target: {fileID: 3128322129605723925, guid: b80fd29dece696e45a28791d428b722f, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: caffab5d45ab5a841941244f81c4a8c1, type: 2}
+      objectReference: {fileID: 9100000, guid: 1bc88c2ecc1293e4eb1701a73951919e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b80fd29dece696e45a28791d428b722f, type: 3}
 --- !u!1001 &1484161850
@@ -4924,8 +4937,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.9433962, g: 0.62299746, b: 0.18244925, a: 1}
+    m_PressedColor: {r: 1, g: 0.36335683, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5812,7 +5825,7 @@ PrefabInstance:
     - target: {fileID: 7467421093614566978, guid: f5daf1e6bf76bc24eac2ad09e549416d, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 932491a3315939c4aab472f6ff0a3ae2, type: 2}
+      objectReference: {fileID: 9100000, guid: 6c0e4dd1cf031c04ca5c87488f29da4e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5daf1e6bf76bc24eac2ad09e549416d, type: 3}
 --- !u!4 &1910773910 stripped
@@ -6326,6 +6339,7 @@ MonoBehaviour:
   rankers: []
   result: {fileID: 1424607837}
   Leaderboard: {fileID: 28054087}
+  isGameOver: 0
 --- !u!4 &2138017906
 Transform:
   m_ObjectHideFlags: 0
@@ -6413,7 +6427,7 @@ PrefabInstance:
     - target: {fileID: 3012812262044486090, guid: f716466b594233b44b1ae301861ce1a7, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: ecc6280fbe811874f8cd35bf4e9576e1, type: 2}
+      objectReference: {fileID: 9100000, guid: 3078bad008ace504080aa303723f7a5f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f716466b594233b44b1ae301861ce1a7, type: 3}
 --- !u!1001 &7853780517100189659
@@ -6478,6 +6492,6 @@ PrefabInstance:
     - target: {fileID: 9176899598215264977, guid: 23eb90c9dbf53564491beb8015c6b48d, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 42815942d5912b1449b10b314955f816, type: 2}
+      objectReference: {fileID: 9100000, guid: ac5a3d0f6df0f6346909c408328cafce, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23eb90c9dbf53564491beb8015c6b48d, type: 3}

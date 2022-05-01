@@ -14,28 +14,43 @@ public class CharacterClass : MonoBehaviour
     public bool isRunning;
     Animator animator;
     GameManager manager;
-    bool isGameOver;
 
     void Start()
     {
-        runSpeed = Random.Range(10, 15);
-        runSpeed2 = Random.Range(2, 6);
+        StartCoroutine(UpdateRunSpeed());
+        //runSpeed2 = Random.Range(2, 6);
+
         manager = FindObjectOfType<GameManager>();
         animator = GetComponent<Animator>();
         characterName = gameObject.name.ToString();
-        isGameOver = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isRunning && !isGameOver)
+        if (isRunning && !manager.isGameOver)
         {
             Running();
             lapTime += Time.deltaTime;
-            Debug.Log("RunSpeed: " + runSpeed);
+            animator.SetFloat("Speed", runSpeed);
+            Debug.Log(characterName.ToString() +": " + runSpeed);
+            
         }
         
+    }
+
+    IEnumerator UpdateRunSpeed()
+    {
+        runSpeed = Random.Range(1, 3);
+        
+        yield return new WaitForSeconds(0.8f);
+        runSpeed = Random.Range(2, 6);
+
+        yield return new WaitForSeconds(0.8f);
+        runSpeed = Random.Range(3, 7);
+
+        yield return new WaitForSeconds(0.8f);
+        runSpeed = Random.Range(4, 9);
     }
 
     public void UpdateName() 
@@ -51,7 +66,7 @@ public class CharacterClass : MonoBehaviour
 
     public void Running()
     {
-        transform.Translate(0, 0, 1 * runSpeed*Time.deltaTime /runSpeed2);
+        transform.Translate(0, 0, 1 * runSpeed*Time.deltaTime);
     }
 
 
@@ -79,7 +94,6 @@ public class CharacterClass : MonoBehaviour
     {
         if (other.gameObject.tag == "FinishLine")
         {
-            isGameOver = true;
             manager.RecordRank(this);
             isRunning = false;
             animator.SetBool("IsRunning", false);
