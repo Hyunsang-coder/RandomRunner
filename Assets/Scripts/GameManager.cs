@@ -21,10 +21,12 @@ public class GameManager : MonoBehaviour
     public GameObject rewardboard;
     public GameObject counterBoard;
     public bool isGameOver = false;
+    public bool isRunning = false;
 
     public Button[] buttons;
     AudioManager audioManager;
     ParticleSystem fireworks;
+
     
     void Start()
     {
@@ -35,9 +37,9 @@ public class GameManager : MonoBehaviour
         HideNameInputFields();
         HideButtons();
         audioManager = FindObjectOfType<AudioManager>();
+        //npcBehavior = FindObjectOfType<NPCBehavior>();
         fireworks = GameObject.FindWithTag("Fireworks").GetComponent<ParticleSystem>();
-        playerCountTxt.text = playerCount.ToString();
-        
+        playerCountTxt.text = playerCount.ToString();;
     }
 
     // Update is called once per frame
@@ -122,11 +124,13 @@ public class GameManager : MonoBehaviour
     public void RunCharacters()
     {
         HideNameInputFields();
+        if (isRunning) return;
 
         if (!isGameOver)
         {
             audioManager.PlayAudio("Gong");
             fireworks.Play();
+            isRunning = true;
         }
         
         foreach(var character in characters)
@@ -134,6 +138,7 @@ public class GameManager : MonoBehaviour
             character.isRunning = true;
             character.GetComponent<Animator>().SetBool("IsRunning", true);
         }
+
     }
 
     public void AddFinishedCharacters(CharacterClass character)
@@ -200,7 +205,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CloseCounterBoard()
+    
+    public void ToggleCounterBoard()
     {
         if (counterBoard.activeSelf == false)
         {

@@ -8,6 +8,7 @@ TagManager:
   - MidLine
   - FxTemporaire
   - Fireworks
+  - TripLine
   layers:
   - Default
   - TransparentFX

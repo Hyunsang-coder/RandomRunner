@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class CharacterClass : MonoBehaviour
 {
@@ -9,23 +10,27 @@ public class CharacterClass : MonoBehaviour
     public InputField nameInput;
     //public Text displayedName;
     public int runSpeed = 5;
+    float runMultiplier = 1;
     public float lapTime = 0;
     public bool isRunning;
+
     Animator animator;
     GameManager manager;
     AudioManager audioManager;
+    FollowCamera camera;
 
     public ParticleSystem[] particles;
 
     void Start()
     {
-        
-        runSpeed = Random.Range(1, 6);
+        runSpeed = UnityEngine.Random.Range(2, 6);
+        runMultiplier = UnityEngine.Random.Range(0, 8)*0.11f;
 
         manager = FindObjectOfType<GameManager>();
         animator = GetComponent<Animator>();
         characterName = gameObject.name.ToString();
         audioManager = FindObjectOfType<AudioManager>();
+        camera = FindObjectOfType<FollowCamera>();
 
         foreach (var p in particles)
         {
@@ -42,8 +47,8 @@ public class CharacterClass : MonoBehaviour
         {
             Running();
             lapTime += Time.deltaTime;
-            animator.SetFloat("Speed", runSpeed);
-            Debug.Log(characterName.ToString() +": " + runSpeed);
+            animator.SetFloat("Speed", runSpeed + runMultiplier);
+            //Debug.Log(characterName.ToString() +": " + runSpeed);
             
         }
         
@@ -79,27 +84,90 @@ public class CharacterClass : MonoBehaviour
 
         else if (manager.finishedCharacters.Count > 1 && manager.finishedCharacters.Count < manager.characters.Count)
         {
+            StopVFX();
             animator.SetTrigger("Sad");
+            
         }
 
         else if (manager.finishedCharacters.Count == manager.characters.Count)
         {
-            animator.SetTrigger("Trip");
-            audioManager.PlayAudio("Choke");
-            particles[1].Play(true);
+            StopVFX();
+            animator.SetTrigger("Sad");
             manager.isGameOver = true;
 
             manager.WriteOnLeaderboard();
         }
+
+        
     }
+
+    private void StopVFX()
+    {
+        foreach (var p in particles)
+        {
+            p.Stop();
+        }
+    }
+
+    public void TripOver()
+    {
+        StopVFX();
+        float randomNo = UnityEngine.Random.Range(0,4);
+        if (randomNo == 0)
+        {
+            runSpeed = 0;
+            animator.SetTrigger("Trip");
+            audioManager.PlayAudio("Choke");
+            particles[1].Play(true);    
+            StartCoroutine(StandUP());
+        }
+
+        
+    }
+
+    IEnumerator StandUP()
+    {
+        yield return new WaitForSeconds(2.2f);
+        runSpeed = UnityEngine.Random.Range(2, 4);
+        yield return null;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "MidLine")
         {
-            runSpeed = Random.Range(3, 8);
+            runSpeed = UnityEngine.Random.Range(2, 7);
+            if (runSpeed == 2)
+            {
+                TripOver();
+                return;
+            }
+            else if (runSpeed >= 6)
+            {
+                if (particles[2] != null)
+                {
+                    particles[2].Play(true);   
+                }
+                
+            }
+            else if (runSpeed < 6)
+            {
+                StopVFX();
+            }
             return;
         }
+
+        if (other.gameObject.tag == "TripLine")
+        {
+            runSpeed = UnityEngine.Random.Range(7, 9);
+            if (runSpeed == 7)
+            {
+                TripOver();
+            }
+            return;
+        }
+        
         else if (other.gameObject.tag == "FinishLine")
         {
             manager.AddFinishedCharacters(this);
@@ -110,6 +178,5 @@ public class CharacterClass : MonoBehaviour
         }
         
     }
-
 
 }

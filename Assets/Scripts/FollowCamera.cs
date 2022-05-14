@@ -5,15 +5,15 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
 
-    // ¸®¿öµå ¼³Á¤ ½Ã
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     public Vector3 iniPosition;
     public Vector3 iniRotation;
 
-    // ´Þ¸®±â ½ÃÀÛ Àü 
+    // ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
     public Vector3 basePosition;
     public Vector3 baseRotation;
 
-    // ´Þ¸®±â ½ÃÀÛ ÈÄ À§Ä¡ 
+    // ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ 
     public Vector3 offsetPosition;
     public Vector3 offsetRotation;
     public GameObject finishLine;
@@ -38,8 +38,10 @@ public class FollowCamera : MonoBehaviour
 
     public void ZoomChange(int playerCount)
     {
-        offsetPosition.z -= (playerCount*0.5f); 
+        offsetPosition.z -= (playerCount*0.6f); 
     }
+
+    
 
     public void StartPosition()
     {
@@ -56,6 +58,7 @@ public class FollowCamera : MonoBehaviour
         {
             PositionAfterRun();
         }
+
     }
 
     public void PositionAfterRun()
@@ -65,13 +68,10 @@ public class FollowCamera : MonoBehaviour
         //transform.position = finishLine.transform.position + offsetPosition;
         //transform.rotation = Quaternion.Euler(offsetRotation);
 
-
-        Vector3 targetPositon = Vector3.Lerp(transform.position, finishLine.transform.position + offsetPosition, camSpeed * Time.deltaTime);
-        Quaternion targetRotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(offsetRotation), camSpeed * Time.deltaTime);
-
-        transform.position = targetPositon;
-        transform.rotation = targetRotation;
+        transform.position = Vector3.Lerp(transform.position, finishLine.transform.position + offsetPosition, camSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(offsetRotation), camSpeed * Time.deltaTime);
     }
+
 
 
 }
